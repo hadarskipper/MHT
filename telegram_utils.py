@@ -33,7 +33,7 @@ def bot_reply(state, user_id):
 
 
 def bad_message_reply(user_id):
-    bot.send_message(text='משהו התחרבש אחי', chat_id=user_id)
+    bot.send_message(text='ההודעה שלך לא הייתה מובנת לי', chat_id=user_id)
 
 
 def menu_keyboard(option_list):
