@@ -57,4 +57,4 @@ def load_user_xlsx(file_name):
 
 if __name__ == '__main__':
     # main()
-    load_user_xlsx(os.path.join('sql_scripts', 'בוט קורונה חא.xlsx'))
+    load_user_xlsx(sys.argv[1])

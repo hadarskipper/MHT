@@ -1,7 +1,4 @@
-running_local = True
-if running_local:
-  import set_environ
-  set_environ.main()
+import set_environ
 
 import asyncio
 from datetime import datetime, timedelta
