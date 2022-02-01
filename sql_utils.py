@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine, ForeignKey, MetaData
 from sqlalchemy import Column, Date, Integer, String, DATETIME
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.schema import CreateSchema
 
 import urllib
 import os
@@ -17,13 +18,13 @@ database = 'telegram'
 # mssql_db_url_connect = "mssql+pyodbc:///?odbc_connect={}".format(urllib.parse.quote_plus("DRIVER=ODBC Driver 17 for SQL Server;SERVER={0};PORT=1433;DATABASE={1};UID={2};PWD={3};TDS_Version=8.0;charset=utf8".format(server, database, user, password)))
 sqlite_db_file_path = os.path.join(os.getcwd(),'IAF_corona_bot.db')
 sqlite_db_url_connect = f'sqlite:///{sqlite_db_file_path}'
-engine = create_engine(sqlite_db_url_connect)
+engine = create_engine(sqlite_db_url_connect, echo=True)
 
 Base = declarative_base()
 
 class raw_updates(Base):
-
     __tablename__ = "raw_updates"
+    __table_args__ = {'schema': 'dbo'}
 
     update_id = Column(Integer, primary_key=True)
     update_telegram_id = Column(Integer)
@@ -35,8 +36,8 @@ class raw_updates(Base):
 
 
 class update_handle_log(Base):
-
     __tablename__ = "update_handle_log"
+    __table_args__ = {'schema': 'dbo'}
 
     log_id = Column(Integer, primary_key=True)
     update_id = Column(Integer)
@@ -45,8 +46,8 @@ class update_handle_log(Base):
 
 
 class state_entries(Base):
-
     __tablename__ = "state_entries"
+    __table_args__ = {'schema': 'dbo'}
 
     state_entry_id = Column(Integer, primary_key=True)
     user_id = Column(Integer)
@@ -55,15 +56,15 @@ class state_entries(Base):
 
 
 class state_nodes(Base):
-
     __tablename__ = "state_nodes"
+    __table_args__ = {'schema': 'dbo'}
 
     state_node_id = Column(Integer, primary_key=True)
     state_name = Column(String)
 
 class options(Base):
-
     __tablename__ = "options"
+    __table_args__ = {'schema': 'dbo'}
 
     option_id = Column(Integer, primary_key=True)
     current_state_node_id = Column(Integer)

@@ -57,9 +57,9 @@ async def handle_all():
 def handle_update(update_id):
     print(f'starting to handle {update_id}')
     # retrive data
-    update_row = pd.read_sql("select content, from_id from dbo.raw_updates where update_id=?", con=sql_connection, params=(update_id,))
+    update_row = pd.read_sql("select content, from_id from  raw_updates where update_id=?", con=sql_connection, params=(update_id,))
     if update_row.empty: # missing rows in db
-        next_update_waiting_tobe_handled = pd.read_sql("select min(update_id) from dbo.raw_updates where update_id>?", con=sql_connection, params=(update_id,)).values[0,0]
+        next_update_waiting_tobe_handled = pd.read_sql("select min(update_id) from  raw_updates where update_id>?", con=sql_connection, params=(update_id,)).values[0,0]
         last_update_handled.set(next_update_waiting_tobe_handled - 1)
         return
     update = telegram.Update.de_json(bot=bot, data=json.loads(update_row.values[0,0]))
