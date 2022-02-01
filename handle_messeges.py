@@ -12,7 +12,7 @@ import pandas as pd
 from telegram.update import Update
 
 from global_vars import last_update_telegram_id, sql_connection, last_update_handled, last_update
-from db.sql import db_meta
+from sql_utils import db_meta
 from states_utils import resolve_state, get_last_state
 from telegram_utils import bad_message_reply, bot_reply, bot
 
@@ -57,9 +57,9 @@ async def handle_all():
 def handle_update(update_id):
     print(f'starting to handle {update_id}')
     # retrive data
-    update_row = pd.read_sql("select content, from_id from dbo.raw_updates where update_id=?", con=sql_connection, params=(update_id,))
+    update_row = pd.read_sql("select content, from_id from  raw_updates where update_id=?", con=sql_connection, params=(update_id,))
     if update_row.empty: # missing rows in db
-        next_update_waiting_tobe_handled = pd.read_sql("select min(update_id) from dbo.raw_updates where update_id>?", con=sql_connection, params=(update_id,)).values[0,0]
+        next_update_waiting_tobe_handled = pd.read_sql("select min(update_id) from  raw_updates where update_id>?", con=sql_connection, params=(update_id,)).values[0,0]
         last_update_handled.set(next_update_waiting_tobe_handled - 1)
         return
     update = telegram.Update.de_json(bot=bot, data=json.loads(update_row.values[0,0]))
@@ -91,7 +91,6 @@ def log_new_state(new_state, user_id):
 def log_update_as_handled(update_id):
     insert_values = dict(update_id=update_id,
                          log='handled',
-                         log_code=1,
                          log_datetime=datetime.now())
     stmt = insert(db_meta.tables['update_handle_log']).values(**insert_values)
     result = sql_connection.execute(stmt)

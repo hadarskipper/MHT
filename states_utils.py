@@ -11,7 +11,7 @@ def resolve_state(last_state, message_text):
 
 
 def get_last_state(user_id):
-    state_history = pd.read_sql("select * from dbo.state_entries where user_id=?", con=sql_connection, params=(user_id,))
+    state_history = pd.read_sql("select * from  state_entries where user_id=?", con=sql_connection, params=(user_id,))
     if state_history.empty:
         return 1
     return state_history['state_node_id'].values[-1]
