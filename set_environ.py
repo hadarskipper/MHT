@@ -34,3 +34,5 @@ for s in secrets_names:
     if s_val:
         print(f'setting {s} secret with {len(s_val)*"*"}')
         os.environ[s] = s_val
+    else:
+        print(f'did not find {s} secret')
