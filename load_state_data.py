@@ -20,7 +20,7 @@ table_list = [
 def replace_table_content(table_name, df):
     txt_cols = df.select_dtypes(include = ['object']).columns
     nvarchar_cols = {col_name: NVARCHAR for col_name in txt_cols}
-    df.to_sql(con=engine, if_exists='replace', name=table_name, schema='dbo', index=False, dtype=nvarchar_cols)
+    df.to_sql(con=engine, if_exists='replace', name=table_name, index=False, dtype=nvarchar_cols)
 
 def main():
     for table_name in table_list:
@@ -35,7 +35,7 @@ def load_user_xlsx(file_name):
         'מצב המשך לפי תגובה': 'end_state_node_id'
     }
 
-    df = pd.read_excel(os.path.join('db', file_name))
+    df = pd.read_excel(file_name)
     df = df.rename(columns=user_table_col_rename)
 
     check_unique = df.groupby('current_state_node_id')['state_name'].nunique()
@@ -57,4 +57,4 @@ def load_user_xlsx(file_name):
 
 if __name__ == '__main__':
     # main()
-    load_user_xlsx('בוט קורונה חא.xlsx')
+    load_user_xlsx(os.path.join('sql_scripts', 'בוט קורונה חא.xlsx'))

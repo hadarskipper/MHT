@@ -7,8 +7,10 @@ import os
 
 from sympy import content
 
-server = '127.0.0.1'
-database = 'telegram'
+ECHO_SQL = False
+
+# server = '127.0.0.1'
+# database = 'telegram'
 
 # user = 'sa'
 # password = os.environ.get('SA_PASSWORD')
@@ -17,7 +19,7 @@ database = 'telegram'
 # mssql_db_url_connect = "mssql+pyodbc:///?odbc_connect={}".format(urllib.parse.quote_plus("DRIVER=ODBC Driver 17 for SQL Server;SERVER={0};PORT=1433;DATABASE={1};UID={2};PWD={3};TDS_Version=8.0;charset=utf8".format(server, database, user, password)))
 sqlite_db_file_path = os.path.join(os.getcwd(),'IAF_corona_bot.db')
 sqlite_db_url_connect = f'sqlite:///{sqlite_db_file_path}'
-engine = create_engine(sqlite_db_url_connect, echo=True)
+engine = create_engine(sqlite_db_url_connect, echo=ECHO_SQL)
 
 Base = declarative_base()
 
@@ -72,3 +74,4 @@ class options(Base):
 
 
 Base.metadata.create_all(engine)
+db_meta = Base.metadata
