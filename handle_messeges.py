@@ -91,7 +91,6 @@ def log_new_state(new_state, user_id):
 def log_update_as_handled(update_id):
     insert_values = dict(update_id=update_id,
                          log='handled',
-                         log_code=1,
                          log_datetime=datetime.now())
     stmt = insert(db_meta.tables['update_handle_log']).values(**insert_values)
     result = sql_connection.execute(stmt)

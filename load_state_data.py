@@ -4,9 +4,6 @@ import urllib
 import sqlalchemy
 from sqlalchemy.types import NVARCHAR
 
-sys.path.insert(0, '.')
-sys.path.insert(0, '..')
-
 running_local = True
 if running_local:
   import set_environ
