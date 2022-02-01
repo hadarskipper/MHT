@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine, ForeignKey, MetaData
-from sqlalchemy import Column, Date, Integer, String, DATETIME
+from sqlalchemy import Column, Date, Integer, String, DATETIME, NVARCHAR
 from sqlalchemy.ext.declarative import declarative_base
 
 import urllib
@@ -27,7 +27,7 @@ class raw_updates(Base):
 
     update_id = Column(Integer, primary_key=True)
     update_telegram_id = Column(Integer)
-    content = Column(String)  
+    content = Column(NVARCHAR)  
     recived_datetime = Column(DATETIME)
     sent_datetime = Column(DATETIME)
     from_id = Column(Integer)
@@ -40,7 +40,7 @@ class update_handle_log(Base):
 
     log_id = Column(Integer, primary_key=True)
     update_id = Column(Integer)
-    log = Column(String)  
+    log = Column(NVARCHAR)  
     log_datetime = Column(DATETIME)
 
 
@@ -59,7 +59,7 @@ class state_nodes(Base):
     __tablename__ = "state_nodes"
 
     state_node_id = Column(Integer, primary_key=True)
-    state_name = Column(String)
+    state_name = Column(NVARCHAR)
 
 class options(Base):
 
@@ -68,7 +68,7 @@ class options(Base):
     option_id = Column(Integer, primary_key=True)
     current_state_node_id = Column(Integer)
     end_state_node_id = Column(Integer)
-    option_name = Column(String)
+    option_name = Column(NVARCHAR)
 
 
 Base.metadata.create_all(engine)

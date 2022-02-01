@@ -12,7 +12,7 @@ import pandas as pd
 from telegram.update import Update
 
 from global_vars import last_update_telegram_id, sql_connection, last_update_handled, last_update
-from db.sql import db_meta
+from sql_utils import db_meta
 from states_utils import resolve_state, get_last_state
 from telegram_utils import bad_message_reply, bot_reply, bot
 

@@ -1,6 +1,6 @@
 import math
 import pandas as pd
-from db.sql import engine as sql_connection
+from sql_utils import engine as sql_connection
 
 ignore_history = True
 

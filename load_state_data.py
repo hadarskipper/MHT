@@ -9,7 +9,7 @@ if running_local:
   import set_environ
   set_environ.main()
 
-from db.sql import engine
+from sql_utils import engine
 
 table_list = [
     'state_nodes',
