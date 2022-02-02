@@ -4,10 +4,7 @@ import urllib
 import sqlalchemy
 from sqlalchemy.types import NVARCHAR
 
-running_local = True
-if running_local:
-  import set_environ
-  set_environ.main()
+import set_environ
 
 from sql_utils import engine
 
