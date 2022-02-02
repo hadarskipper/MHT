@@ -1,13 +1,14 @@
-import set_environ
-
 import asyncio
 from datetime import datetime, timedelta
 import telegram
 import json
 import time
+
+import set_environ
 from global_vars import last_update_telegram_id
 from handle_messeges import digest, handle_all, null_coro, digest_update
 from telegram_utils import get_new_updates
+from lock_running import is_running_locked, lock_running
 
 period = 1
 
@@ -42,5 +43,10 @@ async def main(loop):
     await asyncio.sleep(period)
     i += 1
 
-loop = asyncio.get_event_loop()
-loop.run_until_complete(main(loop))
+if is_running_locked():
+  print('bot is already running in a different process...')
+  time.sleep(5)
+else:
+  lock_running()
+  loop = asyncio.get_event_loop()
+  loop.run_until_complete(main(loop))

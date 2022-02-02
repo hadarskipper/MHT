@@ -8,3 +8,4 @@ excel_files/*
 
 secrets.json
 IAF_corona_bot.db
+current_running_pid.lock
