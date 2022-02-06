@@ -1,5 +1,6 @@
 import asyncio
 from datetime import datetime, timedelta
+import sys
 import telegram
 import json
 import time
@@ -43,7 +44,13 @@ async def main(loop):
     await asyncio.sleep(period)
     i += 1
 
-if is_running_locked():
+
+try:
+  arg = sys.argv[1]
+except:
+  arg = None
+
+if is_running_locked() and arg != 'force':
   print('bot is already running in a different process...')
   time.sleep(5)
 else:
