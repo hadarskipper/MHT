@@ -10,7 +10,8 @@ lock_file = 'current_running_pid.lock'
 
 def is_running_locked():
     if os.path.isfile(lock_file):
-        lock_dict = json.load(lock_file)
+        with open(lock_file, 'r') as f:
+            lock_dict = json.load(f)
         
         current_pid = lock_dict['current_pid']
         datetime_alive = datetime.strptime(lock_dict['datetime_alive'], datetime_format)
@@ -26,4 +27,5 @@ def lock_running():
     lock_dict['current_pid'] = os.getpid()
     lock_dict['datetime_alive'] = datetime.now().strftime(datetime_format)
 
-    json.dump(lock_dict, lock_file)
+    with open(lock_file, 'w') as f:
+        json.dump(lock_dict, f)

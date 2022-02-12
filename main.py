@@ -24,6 +24,7 @@ async def main(loop):
   datetime_is_alive = datetime.now()
 
   while True:
+    lock_running()
     try:
       new_updates = get_new_updates()
     except telegram.error.TimedOut as e:
