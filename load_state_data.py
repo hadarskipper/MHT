@@ -10,7 +10,7 @@ from sql_utils import engine
 
 table_list = [
     'state_nodes',
-    'options'
+    'actions'
 ]
 
 
@@ -45,10 +45,10 @@ def load_user_xlsx(file_name):
     state_nodes = state_nodes.rename(columns={'current_state_node_id': 'state_node_id'})
     replace_table_content('state_nodes', state_nodes)
 
-    options = df.loc[:, ['current_state_node_id','end_state_node_id','option_name']].copy()
-    options.index.name = 'option_id'
-    options = options.reset_index()
-    replace_table_content('options', options)
+    actions = df.loc[:, ['current_state_node_id','end_state_node_id','option_name']].copy()
+    actions.index.name = 'action_id'
+    actions = actions.reset_index()
+    replace_table_content('actions', actions)
 
     
 
